@@ -1,0 +1,6 @@
+@UtsRestfullAPI_HostAddress = http://localhost:5089
+
+GET {{UtsRestfullAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
