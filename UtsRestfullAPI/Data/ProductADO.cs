@@ -75,6 +75,11 @@ namespace UtsRestfullAPI.Data
             }
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+            throw new NotImplementedException();
+        }
+
         public Product GetProductById(int productId)
         {
             Product product = new Product();
@@ -131,6 +136,11 @@ namespace UtsRestfullAPI.Data
                 conn.Close();   
             }
             return products;
+        }
+
+        public IEnumerable<Product> GetProductsByCategory(int categoryId)
+        {
+            throw new NotImplementedException();
         }
 
         public Product UpdateProduct(Product product)

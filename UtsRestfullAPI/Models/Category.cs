@@ -9,5 +9,9 @@ namespace UtsRestfullAPI.Models
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } 
+
+        public IEnumerable<Product> Products { get; set; } = new List<Product>(); // Navigation property to Products
+
+
     }
 }

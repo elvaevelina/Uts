@@ -13,5 +13,6 @@ namespace UtsRestfullAPI.Data
         Customer AddCustomer(Customer customer);
         Customer UpdateCustomer(Customer customer);
         void DeleteCustomer(int customerId);
+        object GetCustomerById(object customerId);
     }
 }

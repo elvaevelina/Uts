@@ -8,7 +8,7 @@ using UtsRestfullAPI.Models;
 
 namespace UtsRestfullAPI.Data
 {
-    public class SalesADO : ISales
+    public class SalesADO : ISaless
     {
         private readonly IConfiguration _configuration;
         private string connStr = string.Empty;
@@ -19,9 +19,9 @@ namespace UtsRestfullAPI.Data
             connStr = _configuration.GetConnectionString("DefaultConnection");
         }
 
-        public Sales AddSales(Sales sales)
+        public Saless AddSales(Saless sales)
         {
-            using(SqlConnection conn = new SqlConnection(connStr))
+                        using(SqlConnection conn = new SqlConnection(connStr))
             {
                 string strSql = @"INSERT INTO Saless
                 (CustomerId, SaleDate, TotalAMount)
@@ -31,7 +31,7 @@ namespace UtsRestfullAPI.Data
                 try
                 {
                     cmd.Parameters.AddWithValue("@CustomerId", sales.CustomerId);
-                    cmd.Parameters.AddWithValue("@SaleDate", sales.SalesDate);
+                    cmd.Parameters.AddWithValue("@SaleDate", sales.SaleDate);
                     cmd.Parameters.AddWithValue("@TotalAmount", sales.TotalAmount);
 
                     conn.Open();
@@ -49,6 +49,7 @@ namespace UtsRestfullAPI.Data
                     conn.Close();
                 }
             }
+
         }
 
         public void DeleteSales(int saleId)
@@ -75,61 +76,22 @@ namespace UtsRestfullAPI.Data
             }
         }
 
-        public IEnumerable<Sales> GetSales()
-        {                
-            List<Sales> saless = new List<Sales>();
-            using(SqlConnection conn = new SqlConnection(connStr))
-            {
-                string strSql = @"SELECT * FROM Saless ORDER BY SaleId";
-                SqlCommand cmd = new SqlCommand(strSql, conn);
-                conn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if(dr.HasRows)
-                {
-                    while(dr.Read())
-                    {
-                        Sales sales = new Sales();
-                        sales.SaleId = Convert.ToInt32(dr["SaleId"]);
-                        sales.CustomerId= Convert.ToInt32(dr["CustomerId"]);
-                        sales.SalesDate = Convert.ToDateTime(dr["SaleDate"]);
-                        sales.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
-                        saless.Add(sales);
-                    }
-                }
-                dr.Close();
-                cmd.Dispose();
-                conn.Close();
-            }
-            return saless;
+        public IEnumerable<Saless> GetAllSalesWithDetails(int saleId)
+        {
+            throw new NotImplementedException();
         }
 
-        public Sales GetSalesById(int saleId)
+        public IEnumerable<Saless> GetAllSalesWithDetails()
         {
-            Sales sales = new Sales();
-            using(SqlConnection conn = new SqlConnection(connStr))
-            {
-                string strSql = @"SELECT * FROM Saless WHERE SaleId = @SaleId";
-                SqlCommand cmd = new SqlCommand(strSql, conn);
-                cmd.Parameters.AddWithValue("@SaleId", saleId);
-                conn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if(dr.HasRows)
-                {
-                    dr.Read();
-                    sales.SaleId = Convert.ToInt32(dr["SaleId"]);
-                    sales.CustomerId= Convert.ToInt32(dr["CustomerId"]);
-                    sales.SalesDate = Convert.ToDateTime(dr["SaleDate"]);
-                    sales.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
-                }
-                else
-                {
-                    throw new Exception("Sale not found");
-                }
-                return sales;
-            }             
-       }
+            throw new NotImplementedException();
+        }
 
-        public Sales UpdateSales(Sales sales)
+        public Saless GetSaleDetail(int saleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Saless UpdateSales(Saless sales)
         {
             using(SqlConnection conn = new SqlConnection(connStr))
             {
@@ -143,7 +105,7 @@ namespace UtsRestfullAPI.Data
                 {
                     cmd.Parameters.AddWithValue("@SaleId", sales.SaleId);
                     cmd.Parameters.AddWithValue("@CustomerId", sales.CustomerId);
-                    cmd.Parameters.AddWithValue("@SaleDate", sales.SalesDate);
+                    cmd.Parameters.AddWithValue("@SaleDate", sales.SaleDate);
                     cmd.Parameters.AddWithValue("@TotalAmount", sales.TotalAmount);
 
                     conn.Open();
@@ -164,6 +126,60 @@ namespace UtsRestfullAPI.Data
                     conn.Close();
                 }
             }
+        }
+
+        IEnumerable<Saless> ISaless.GetSales()
+        {
+            List<Saless> saless = new List<Saless>();
+            using(SqlConnection conn = new SqlConnection(connStr))
+            {
+                string strSql = @"SELECT * FROM Saless ORDER BY SaleId";
+                SqlCommand cmd = new SqlCommand(strSql, conn);
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if(dr.HasRows)
+                {
+                    while(dr.Read())
+                    {
+                        Saless sales = new Saless();
+                        sales.SaleId = Convert.ToInt32(dr["SaleId"]);
+                        sales.CustomerId= Convert.ToInt32(dr["CustomerId"]);
+                        sales.SaleDate = Convert.ToDateTime(dr["SaleDate"]);
+                        sales.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
+                        saless.Add(sales);
+                    }
+                }
+                dr.Close();
+                cmd.Dispose();
+                conn.Close();
+            }
+            return saless;
+        }
+
+        Saless ISaless.GetSalesById(int saleId)
+        {
+            Saless sales = new Saless();
+            using(SqlConnection conn = new SqlConnection(connStr))
+            {
+                string strSql = @"SELECT * FROM Saless WHERE SaleId = @SaleId";
+                SqlCommand cmd = new SqlCommand(strSql, conn);
+                cmd.Parameters.AddWithValue("@SaleId", saleId);
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if(dr.HasRows)
+                {
+                    dr.Read();
+                    sales.SaleId = Convert.ToInt32(dr["SaleId"]);
+                    sales.CustomerId= Convert.ToInt32(dr["CustomerId"]);
+                    sales.SaleDate = Convert.ToDateTime(dr["SaleDate"]);
+                    sales.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
+                }
+                else
+                {
+                    throw new Exception("Sale not found");
+                }
+                return sales;
+            }             
         }
     }
 }

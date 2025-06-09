@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UtsRestfullAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7581818a5a0e3a645a1e3c7e2111359db30e3621")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6c3880bdb3ec01e29cb1117564865bdc8ff8c35")]
 [assembly: System.Reflection.AssemblyProductAttribute("UtsRestfullAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UtsRestfullAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

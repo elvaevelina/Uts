@@ -13,5 +13,8 @@ namespace UtsRestfullAPI.Data
         Product AddProduct(Product product);
         Product UpdateProduct(Product product);
         void DeleteProduct(int productId);
+
+        IEnumerable<Product> GetProductsByCategory(int categoryId);
+        IEnumerable<Product> GetAllProducts();
     }
 }

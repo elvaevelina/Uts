@@ -102,6 +102,11 @@ namespace UtsRestfullAPI.Data
             }
         }
 
+        public object GetCustomerById(object customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Customer> GetCustomers()
         {
             List<Customer> customers = new List<Customer>();
