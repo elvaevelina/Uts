@@ -18,6 +18,9 @@ namespace UtsRestfullAPI.Mapping
             CreateMap<Saless, SalessDTO>()
                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.SaleItems))  // <-- mapping tambahan ini
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
+                    src.SaleItems != null ? src.SaleItems.Sum(si => si.Quantity * si.Price) : 0
+                    ))
                 .ReverseMap();
             CreateMap<SaleItem, SaleItemDTO>().ReverseMap();
             CreateMap<Employee, EmployeeDTO>().ReverseMap();
